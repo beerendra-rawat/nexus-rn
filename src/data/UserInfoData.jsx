@@ -1,0 +1,75 @@
+export const userProfile = {
+    name: 'Beerendra Singh Rawat',
+    shortName: 'BR',
+    status: 'Allocated',
+    allocation: 100,
+};
+
+export const userInfoData = [
+    {
+        id: '1',
+        label: 'Employee ID',
+        value: 'TCZI/225',
+        icon: require('../assets/img/profile.png'),
+        clickable: false,
+    },
+    {
+        id: '2',
+        label: 'Designation',
+        value: 'Intern - Technology',
+        icon: require('../assets/img/profile.png'),
+        clickable: false,
+    },
+    {
+        id: '3',
+        label: 'Phone Number',
+        value: '7248093269',
+        icon: require('../assets/img/phone.png'),
+        clickable: true,
+        actionType: 'phone',
+    },
+    {
+        id: '4',
+        label: 'Email Address',
+        value: 'beerendra.rawat@techchefz.com',
+        icon: require('../assets/img/email.png'),
+        clickable: true,
+        actionType: 'email',
+    },
+    {
+        id: '5',
+        label: 'Reporting Manager',
+        value: 'Ankit Ashok Jha',
+        icon: require('../assets/img/profile.png'),
+        clickable: true,
+        actionType: 'profile',
+    },
+    {
+        id: '6',
+        label: 'Joining Date',
+        value: 'Jan 6, 2026',
+        icon: require('../assets/img/date.png'),
+        clickable: false,
+    },
+    {
+        id: '7',
+        label: 'Department',
+        value: 'Delivery',
+        icon: require('../assets/img/profile.png'),
+        clickable: false,
+    },
+    {
+        id: '8',
+        label: 'Sub Department',
+        value: 'Delivery',
+        icon: require('../assets/img/profile.png'),
+        clickable: false,
+    },
+    {
+        id: '9',
+        label: 'Function',
+        value: 'Delivery',
+        icon: require('../assets/img/profile.png'),
+        clickable: false,
+    },
+];
