@@ -27,8 +27,8 @@ const styles = StyleSheet.create({
         transform: [{ rotate: "180deg" }],
     },
     main: {
-        paddingHorizontal: 16,
-        paddingTop: 8,
+        paddingHorizontal: 12,
+        paddingVertical: 12,
     },
     title: {
         fontSize: 26,

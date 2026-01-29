@@ -19,7 +19,6 @@ export default function UserInfo() {
             Linking.openURL(`mailto:${item.value}`);
         }
     };
-
     return (
         <SafeAreaView style={styles.safeArea}>
             <View style={styles.main}>
@@ -27,7 +26,6 @@ export default function UserInfo() {
                 <View style={styles.info}>
                     {userInfoData.map((item) => {
                         const Wrapper = item.clickable ? TouchableOpacity : View;
-
                         return (
                             <Wrapper
                                 key={item.id}
@@ -79,17 +77,13 @@ export default function UserInfo() {
         </SafeAreaView>
     );
 }
-
 const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
     },
-
     info: {
-        paddingHorizontal: 16,
-        paddingTop: 0,
+        paddingHorizontal: 12,
     },
-
     item: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -97,7 +91,6 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderColor: '#e5e7eb',
     },
-
     iconWrap: {
         width: 36,
         height: 36,
@@ -107,61 +100,51 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginRight: 12,
     },
-
     icon: {
         width: 20,
         height: 20,
         tintColor: '#2563eb',
     },
-
     label: {
-        fontSize: 12,
-        fontWeight: '600',
+        fontSize: 14,
+        fontWeight: 600,
         color: '#64748b',
         textTransform: 'uppercase',
     },
-
     value: {
         fontSize: 16,
-        fontWeight: '500',
+        fontWeight: 600,
         color: '#0f172a',
         marginTop: 2,
     },
-
     link: {
         color: '#2563eb',
     },
-
     progressWrap: {
-        paddingHorizontal: 16,
+        paddingHorizontal: 12,
         paddingTop: 20,
     },
-
     progressHeader: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginBottom: 6,
     },
-
     progressLabel: {
-        fontSize: 12,
-        fontWeight: '600',
+        fontSize: 14,
+        fontWeight: 600,
         color: '#64748b',
     },
-
     progressValue: {
         fontSize: 14,
-        fontWeight: '700',
+        fontWeight: 800,
         color: '#0f172a',
     },
-
     progressTrack: {
         height: 8,
         backgroundColor: '#e5e7eb',
         borderRadius: 8,
         overflow: 'hidden',
     },
-
     progressFill: {
         height: '100%',
         backgroundColor: '#22c55e',

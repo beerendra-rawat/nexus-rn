@@ -1,5 +1,6 @@
 import { StyleSheet, Image, Text, View } from "react-native"
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Allocations from '../components/Allocations';
 
 
 export default function ProjectsScreen() {
@@ -13,6 +14,7 @@ export default function ProjectsScreen() {
             />
             <View style={styles.main}>
                 <Text style={styles.title}>Allocations</Text>
+                <Allocations />
             </View>
         </SafeAreaView>
     )

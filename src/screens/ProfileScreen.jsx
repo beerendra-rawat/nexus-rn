@@ -27,7 +27,7 @@ export default function ProfileScreen() {
         </View>
 
         <View style={styles.nameWrap}>
-          <Text style={styles.name}>{userProfile.name}</Text>
+          <Text style={styles.nameText}>{userProfile.name}</Text>
           <View style={styles.status}>
             <Text style={styles.statusText}>{userProfile.status}</Text>
           </View>
@@ -62,13 +62,12 @@ const styles = StyleSheet.create({
     height: "110%",
     transform: [{ rotate: "180deg" }],
   },
-
   topRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 16,
+    paddingHorizontal: 12,
+    paddingVertical: 12,
   },
-
   avatar: {
     width: 64,
     height: 64,
@@ -77,24 +76,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
   avatarText: {
     fontSize: 22,
-    fontWeight: '700',
+    fontWeight: 800,
     color: '#2563eb',
   },
-
   nameWrap: {
     flex: 1,
     marginLeft: 14,
   },
-
-  name: {
-    fontSize: 20,
-    fontWeight: '700',
+  nameText: {
+    fontSize: 22,
+    fontWeight: 800,
     color: '#0f172a',
   },
-
   status: {
     alignSelf: 'flex-start',
     marginTop: 6,
@@ -103,37 +98,26 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     borderRadius: 12,
   },
-
   statusText: {
-    fontSize: 12,
-    fontWeight: '600',
+    fontSize: 14,
+    fontWeight: 600,
     color: '#15803d',
   },
-
-
   scrollContent: {
     flexGrow: 1,
   },
-
-  name: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#0f172a',
-  },
-
   logOutBtn: {
     borderWidth: 2,
     borderColor: "#2350ba",
     backgroundColor: 'transparent',
-    paddingVertical: 14,
-    borderRadius: 10,
+    paddingVertical: 16,
+    borderRadius: 12,
     alignItems: 'center',
     marginHorizontal: 12,
   },
-
   btnText: {
     color: 'black',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 800,
   },
 });
