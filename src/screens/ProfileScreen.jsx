@@ -69,9 +69,9 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
   },
   avatar: {
-    width: 64,
-    height: 64,
-    borderRadius: 20,
+    width: 50,
+    height: 50,
+    borderRadius: 25,
     backgroundColor: '#e0e7ff',
     justifyContent: 'center',
     alignItems: 'center',
@@ -114,6 +114,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: 'center',
     marginHorizontal: 12,
+    marginTop: 32,
   },
   btnText: {
     color: 'black',

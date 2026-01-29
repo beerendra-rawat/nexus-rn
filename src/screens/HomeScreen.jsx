@@ -86,16 +86,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingTop: 8,
-    paddingHorizontal: 12,
+    paddingHorizontal: 18,
   },
   logo: {
     width: width * 0.35,
-    height: 50,
+    height: 45,
     resizeMode: 'cover',
+    paddingLeft: 24,
   },
   content: {
     alignItems: "center",
-    paddingTop: 300,
+    paddingTop: 200,
   },
   hello: {
     fontSize: 42,

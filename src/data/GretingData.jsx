@@ -22,7 +22,7 @@ export const welcomeData = [
     },
     {
         id: 4,
-        greeting: 'Welcome back',
+        greeting: 'Welcome Back',
         subtitle: 'Stay consistent, stay strong.',
         quote: 'It does not matter how slowly you go as long as you do not stop.',
         author: 'Confucius',
@@ -50,7 +50,7 @@ export const welcomeData = [
     },
     {
         id: 8,
-        greeting: 'Welcome back',
+        greeting: 'Welcome Back',
         subtitle: 'Momentum beats motivation.',
         quote: 'The secret of getting ahead is getting started.',
         author: 'Mark Twain',
