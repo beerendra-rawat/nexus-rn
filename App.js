@@ -1,22 +1,20 @@
-import { NavigationContainer } from '@react-navigation/native';
 import { StyleSheet, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-
-import BottomTabs from './src/navigation/BottomTabs';
+import RootNavigation from './src/navigation/RootNavigation';
 
 export default function App() {
   return (
     <View style={styles.container}>
       <StatusBar style="dark" />
-      <NavigationContainer>
-        <BottomTabs />
-      </NavigationContainer>
+      <RootNavigation />
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
   },
 });
+

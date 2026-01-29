@@ -11,9 +11,17 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from '@expo/vector-icons';
 import { welcomeData } from "../data/GretingData";
 
+
+import { notificationsData } from '../data/NotificationsData';
+
+const unreadCount = notificationsData.filter(
+  item => !item.isRead
+).length;
+
+
 const { width } = Dimensions.get('window');
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
 
   const welcome = useMemo(() => {
     const index = Math.floor(Math.random() * welcomeData.length);
@@ -33,12 +41,18 @@ export default function HomeScreen() {
           source={require('../assets/img/tcz.png')}
           style={styles.logo}
         />
-        <TouchableOpacity style={styles.notificationIcon}>
+        <TouchableOpacity style={styles.notificationIcon}
+        onPress={() => navigation.navigate('Notification')}>
           <Ionicons
             name="notifications-outline"
             size={28}
             color="#0f172a"
           />
+          {unreadCount > 0 && (
+            <View style={styles.badge}>
+              <Text style={styles.badgeText}>{unreadCount}</Text>
+            </View>
+          )}
         </TouchableOpacity>
       </View>
 
@@ -94,6 +108,25 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     paddingLeft: 24,
   },
+
+  badge: {
+    position: 'absolute',
+    right: 6,
+    top: 1,
+    backgroundColor: '#FF3B30',
+    borderRadius: 10,
+    minWidth: 18,
+    height: 18,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: 3,
+  },
+  badgeText: {
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: 600,
+  },
+
   content: {
     alignItems: "center",
     paddingTop: 200,
