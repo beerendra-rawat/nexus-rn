@@ -2,8 +2,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 
 import HomeScreen from '../screens/HomeScreen';
-import SearchScreen from '../screens/SearchScreen';
-import MyDeskScreen from '../screens/MyDeskScreen';
+import SearchScreen from '../screens/TimesheetScreen';
+import MyDeskScreen from '../screens/ProjectsScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 
 const Tab = createBottomTabNavigator();
@@ -36,20 +36,19 @@ export default function BottomTabs() {
       />
 
       <Tab.Screen
-        name="Search"
+        name="Timesheet"
         component={SearchScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="search-outline" size={size} color={color} />
+            <Ionicons name="time-outline" size={size} color={color} />
           ),
         }}
       />
 
       <Tab.Screen
-        name="MyDesk"
+        name="Project"
         component={MyDeskScreen}
         options={{
-          title: 'My Desk',
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="briefcase-outline" size={size} color={color} />
           ),

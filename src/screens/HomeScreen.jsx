@@ -5,11 +5,13 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
+  Dimensions
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from '@expo/vector-icons';
-
 import { welcomeData } from "../data/GretingData";
+
+const { width } = Dimensions.get('window');
 
 export default function HomeScreen() {
 
@@ -69,13 +71,13 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: "#ffff",
+    backgroundColor: '#fff',
   },
 
   background: {
     position: "absolute",
     width: "100%",
-    height: "108%",
+    height: "110%",
     transform: [{ rotate: "180deg" }],
   },
 
@@ -83,18 +85,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    paddingTop: 8,
     paddingHorizontal: 12,
-    paddingTop: 0,
   },
   logo: {
-    width: 100,
+    width: width * 0.35,
     height: 50,
-    resizeMode: 'contain',
+    resizeMode: 'cover',
   },
-  notificationIcon: {
-    padding: 0,
-  },
-
   content: {
     alignItems: "center",
     paddingTop: 300,

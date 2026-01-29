@@ -1,7 +1,6 @@
 import { View, Text, StyleSheet, Image } from "react-native"
 import { SafeAreaView } from 'react-native-safe-area-context';
-import SearchBar from "../components/SearchBar";
-export default function SearchScreen() {
+export default function TimesheetScreen() {
     return (
         <SafeAreaView style={styles.safeArea}>
             <Image
@@ -9,20 +8,30 @@ export default function SearchScreen() {
                 style={styles.background}
                 resizeMode="cover"
             />
+            <View style={styles.main}>
+                <Text style={styles.title}>Timesheet</Text>
+            </View>
 
-            <SearchBar />
         </SafeAreaView>
     )
 }
 const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
-        backgroundColor: '#ffff',
+        backgroundColor: '#fff',
     },
     background: {
         position: "absolute",
         width: "100%",
-        height: "108%",
+        height: "110%",
         transform: [{ rotate: "180deg" }],
     },
+    main: {
+        paddingHorizontal: 16,
+        paddingTop: 8,
+    },
+    title: {
+        fontSize: 26,
+        fontWeight: 800,
+    }
 })

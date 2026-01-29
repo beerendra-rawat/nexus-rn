@@ -1,6 +1,9 @@
-import { View, Text, StyleSheet, Image } from "react-native"
+import { StyleSheet, Image, Text, View } from "react-native"
 import { SafeAreaView } from 'react-native-safe-area-context';
-export default function MyDeskScreen() {
+
+
+export default function ProjectsScreen() {
+
     return (
         <SafeAreaView style={styles.safeArea}>
             <Image
@@ -8,6 +11,9 @@ export default function MyDeskScreen() {
                 style={styles.background}
                 resizeMode="cover"
             />
+            <View style={styles.main}>
+                <Text style={styles.title}>Allocations</Text>
+            </View>
         </SafeAreaView>
     )
 }
@@ -19,7 +25,15 @@ const styles = StyleSheet.create({
     background: {
         position: "absolute",
         width: "100%",
-        height: "108%",
+        height: "110%",
         transform: [{ rotate: "180deg" }],
     },
+    main: {
+        paddingHorizontal: 16,
+        paddingTop: 8,
+    },
+    title: {
+        fontSize: 26,
+        fontWeight: 800,
+    }
 })
