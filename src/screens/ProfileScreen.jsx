@@ -10,7 +10,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import UserInfo from '../components/UserInfo';
 import { userProfile } from '../data/UserInfoData';
 
-export default function ProfileScreen() {
+export default function ProfileScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.safeArea}>
       <Image
@@ -39,7 +39,8 @@ export default function ProfileScreen() {
       >
 
         <UserInfo />
-        <TouchableOpacity style={styles.logOutBtn}>
+        <TouchableOpacity style={styles.logOutBtn}
+          onPress={() => navigation.navigate('GoogleAuth')}>
           <Text style={styles.btnText}>Log-Out</Text>
         </TouchableOpacity>
 

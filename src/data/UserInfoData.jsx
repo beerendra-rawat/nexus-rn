@@ -10,7 +10,7 @@ export const userInfoData = [
         id: '1',
         label: 'Employee ID',
         value: 'TCZI/225',
-        icon: require('../assets/img/empId.png'),
+        icon: require('../assets/img/id.png'),
         clickable: false,
     },
     {

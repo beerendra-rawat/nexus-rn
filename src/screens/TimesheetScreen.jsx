@@ -1,5 +1,7 @@
 import { View, Text, StyleSheet, Image } from "react-native"
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Timesheet from "../components/timesheet";
+
 export default function TimesheetScreen() {
     return (
         <SafeAreaView style={styles.safeArea}>
@@ -11,7 +13,7 @@ export default function TimesheetScreen() {
             <View style={styles.main}>
                 <Text style={styles.title}>Timesheet</Text>
             </View>
-
+            <Timesheet />
         </SafeAreaView>
     )
 }
