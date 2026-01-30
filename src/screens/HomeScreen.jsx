@@ -10,7 +10,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from '@expo/vector-icons';
 import { welcomeData } from "../data/GretingData";
-
+import { StatusBar } from 'expo-status-bar';
 
 import { notificationsData } from '../data/NotificationsData';
 
@@ -30,6 +30,7 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.safeArea}>
+      <StatusBar style="drak" />
       <Image
         source={require("../assets/img/bgImg.png")}
         style={styles.background}

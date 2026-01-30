@@ -28,7 +28,7 @@ export const allocationsData = {
                     id: 2,
                     label: 'Allocation Percentage',
                     value: '100%',
-                    icon: require('../assets/img/date.png'),
+                    icon: require('../assets/img/allocation.png'),
                 },
             ],
 

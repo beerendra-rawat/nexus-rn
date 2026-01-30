@@ -190,7 +190,7 @@ export default function GoogleAuthScreen({ navigation }) {
                 <Text style={styles.title}>Welcome to Nexus!</Text>
               </View>
               <View>
-                <Text style={styles.subTitle}>Your gateway to workforce insights{"\n"}and project management.</Text>
+                <Text style={styles.subTitle}>Your gateway to workforce insights and project management.</Text>
               </View>
               <TouchableOpacity
                 style={styles.btnRow}
@@ -249,7 +249,6 @@ const styles = StyleSheet.create({
     fontFamily: "DMSans-Regular",
     textAlign: 'center',
     paddingTop: 12,
-    paddingHorizontal: 8,
   },
   btnRow: {
     width: "100%",
