@@ -33,12 +33,15 @@ export default function ProfileScreen({ navigation }) {
           </View>
         </View>
       </View>
+      <View style={styles.divider}/>
+
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
       >
 
         <UserInfo />
+
         <TouchableOpacity style={styles.logOutBtn}
           onPress={() => navigation.navigate('GoogleAuth')}>
           <Text style={styles.btnText}>Log-Out</Text>
@@ -66,8 +69,7 @@ const styles = StyleSheet.create({
   topRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 12,
-    paddingTop: 30,
+    paddingHorizontal: 24,
   },
   avatar: {
     width: 50,
@@ -85,6 +87,7 @@ const styles = StyleSheet.create({
   nameWrap: {
     flex: 1,
     marginLeft: 14,
+    marginTop: 28,
   },
   nameText: {
     fontSize: 22,
@@ -105,6 +108,7 @@ const styles = StyleSheet.create({
     color: '#15803d',
   },
   scrollContent: {
+    marginTop: -10,
     flexGrow: 1,
   },
   logOutBtn: {
@@ -122,4 +126,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 800,
   },
+  divider:{
+    opacity: 0.3,
+    marginTop: 24,
+    marginHorizontal: 12,
+    height: 1,
+    backgroundColor: '#111111'
+  }
 });

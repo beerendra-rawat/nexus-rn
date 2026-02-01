@@ -45,7 +45,7 @@ export default function NotificationsScreen({ navigation }) {
           data={notifications}
           keyExtractor={(item) => item.id}
           renderItem={renderItem}
-          contentContainerStyle={{ paddingBottom: 20 }}
+          contentContainerStyle={[{ paddingBottom: 20 }, styles.flatList] }
         />
       </View>
     </SafeAreaView>
@@ -65,25 +65,24 @@ const styles = StyleSheet.create({
     transform: [{ rotate: "180deg" }],
   },
   container: {
-    paddingHorizontal: 12,
+    paddingHorizontal: 20,
   },
   topRow: {
     flexDirection: 'row',
-    gap: 10,
+    gap: 25,
     paddingVertical: 12,
   },
   btnWrap: {
-    width: 25,
-    height: 25,
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: '#5c5858e9',
-  },
-  backBtn: {
-    alignContent: 'center',
-    alignItems: 'center',
     width: 20,
     height: 20,
+  },
+  backBtn: {
+    marginLeft: 5,
+    marginTop: 6,
+    alignContent: 'center',
+    alignItems: 'center',
+    width: 18,
+    height: 18,
   },
   header: {
     fontSize: 20,
@@ -92,7 +91,7 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: '#fff',
-    padding: 14,
+    padding: 18,
     borderRadius: 10,
     marginBottom: 12,
     elevation: 2,
@@ -104,7 +103,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 15,
     fontWeight: '600',
-    marginBottom: 4,
+    marginBottom: 6,
   },
   message: {
     fontSize: 13,
@@ -124,4 +123,7 @@ const styles = StyleSheet.create({
     color: '#007AFF',
     fontWeight: '600',
   },
+  flatList: {
+    marginTop: 20,
+  }
 });

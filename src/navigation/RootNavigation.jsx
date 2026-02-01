@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import BottomTabs from './BottomTabs';
 import NotificationsScreen from '../screens/NotificationsScreen';
 import GoogleAuthScreen from '../screens/GoogleAuthScreen';
+import TaskListScreen from '../screens/TaskListScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -29,6 +30,8 @@ export default function RootNavigation() {
           component={NotificationsScreen}
           options={{ headerShown: false }}
         />
+
+        <Stack.Screen name="TaskList" component={TaskListScreen} />
 
       </Stack.Navigator>
     </NavigationContainer>

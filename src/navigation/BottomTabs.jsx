@@ -16,6 +16,7 @@ export default function BottomTabs() {
         tabBarActiveTintColor: '#2563eb',
         tabBarInactiveTintColor: '#64748b',
         tabBarStyle: {
+          // bottom: 10,
           backgroundColor: '#ffffff',
           borderTopWidth: 0.5,
           borderTopColor: '#e5e7eb',
