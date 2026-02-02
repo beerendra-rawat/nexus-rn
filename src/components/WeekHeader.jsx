@@ -1,4 +1,9 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet
+} from "react-native";
 import dayjs from "dayjs";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -20,7 +25,7 @@ export default function WeekHeader({
 
   return (
     <View style={styles.container}>
-      {/* Left + Center */}
+
       <View style={styles.dateBox}>
         <TouchableOpacity onPress={onPrev} style={styles.arrowBtn}>
           <Ionicons name="chevron-back" size={26} />
@@ -39,7 +44,6 @@ export default function WeekHeader({
         </TouchableOpacity>
       </View>
 
-      {/* Right */}
       <TouchableOpacity
         onPress={onCalendarPress}
         style={styles.calendarBtn}
@@ -49,9 +53,7 @@ export default function WeekHeader({
     </View>
   );
 }
-
 const styles = StyleSheet.create({
-  /* Uses parent padding (24) */
   container: {
     flexDirection: "row",
     alignItems: "center",
@@ -59,26 +61,21 @@ const styles = StyleSheet.create({
     marginTop: 8,
     marginBottom: 12,
   },
-
   dateBox: {
     flexDirection: "row",
     alignItems: "center",
   },
-
   arrowBtn: {
     padding: 6,
   },
-
   disabled: {
     opacity: 0.3,
   },
-
   dateText: {
     fontSize: 16,
     fontWeight: "600",
     marginHorizontal: 12,
   },
-
   calendarBtn: {
     padding: 6,
     borderRadius: 12,
