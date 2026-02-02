@@ -70,6 +70,8 @@ const styles = StyleSheet.create({
 
   calendarBtn: {
     borderRadius: 14,
-    justifyContent: "center"
+    justifyContent: "center",
+    right: 20,
+    top: 3,
   }
 });

@@ -7,131 +7,177 @@ export default function Active() {
             {allocationsData.projects.map(project => (
                 <View key={project.id} style={styles.card}>
 
-                    <View style={styles.cardHeader}>
-                        <View style={styles.avatar}>
-                            <Text style={styles.avatarText}>
-                                {project.shortName}
-                            </Text>
-                        </View>
+                    {/* OPACITY OVERLAY */}
+                    <View style={styles.overlay} />
 
-                        <View style={styles.cardHeaderText}>
-                            <Text style={styles.projectName}>
-                                {project.name}
-                            </Text>
-                            <Text style={styles.subText}>
-                                {project.subText}
-                            </Text>
-                        </View>
-                    </View>
+                    {/* CONTENT */}
+                    <View style={styles.cardContent}>
 
-                    <View style={styles.innerDivider} />
-                    {project.details.map(detail => (
-                        <View key={detail.id} style={styles.detailRow}>
-
-                            <Image source={detail.icon} style={styles.detailIcon} />
-
-                            <View>
-                                <Text style={styles.detailLabel}>
-                                    {detail.label}
-                                </Text>
-                                <Text style={styles.detailValue}>
-                                    {detail.value}
+                        {/* Header */}
+                        <View style={styles.cardHeader}>
+                            <View style={styles.avatar}>
+                                <Text style={styles.avatarText}>
+                                    {project.shortName}
                                 </Text>
                             </View>
 
+                            <View style={styles.cardHeaderText}>
+                                <Text style={styles.projectName}>
+                                    {project.name}
+                                </Text>
+                                <Text style={styles.subText}>
+                                    {project.subText}
+                                </Text>
+                            </View>
                         </View>
-                    ))}
-                    <View style={styles.progressTrack}>
-                        <View
-                            style={[
-                                styles.progressFill,
-                                { width: `${project.progress}%` },
-                            ]}
-                        />
-                    </View>
 
+                        <View style={styles.innerDivider} />
+
+                        {/* Details */}
+                        {project.details.map(detail => (
+                            <View key={detail.id} style={styles.detailRow}>
+                                <Image source={detail.icon} style={styles.detailIcon} />
+
+                                <View>
+                                    <Text style={styles.detailLabel}>
+                                        {detail.label}
+                                    </Text>
+                                    <Text style={styles.detailValue}>
+                                        {detail.value}
+                                    </Text>
+                                </View>
+                            </View>
+                        ))}
+
+                        {/* Progress */}
+                        <View style={styles.progressTrack}>
+                            <View
+                                style={[
+                                    styles.progressFill,
+                                    { width: `${project.progress}%` },
+                                ]}
+                            />
+                        </View>
+
+                    </View>
                 </View>
             ))}
-
         </View>
-    )
+    );
 }
 const styles = StyleSheet.create({
     main: {
-        paddingHorizontal: 12,
-        paddingVertical: 24,
+        paddingVertical: 16,
     },
-    divider: {
-        height: 1,
-        backgroundColor: '#e5e7eb',
-        marginVertical: 12,
+
+    /* ===== CARD ===== */
+    card: {
+        backgroundColor: "#fff",
+        borderRadius: 16,
+        marginBottom: 16,
+        overflow: "hidden", // 🔥 IMPORTANT for overlay
+        elevation: 4,
+
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 6 },
+        shadowOpacity: 0.08,
+        shadowRadius: 12,
     },
+
+    /* OPACITY LAYER */
+    overlay: {
+        ...StyleSheet.absoluteFillObject,
+        backgroundColor: "#2563eb",
+        opacity: 0.03, // 👈 subtle overlay
+    },
+
+    cardContent: {
+        padding: 18,
+    },
+
+    /* ===== HEADER ===== */
     cardHeader: {
-        flexDirection: 'row',
-        alignItems: 'center',
+        flexDirection: "row",
+        alignItems: "center",
     },
+
     avatar: {
-        width: 40,
-        height: 40,
-        borderRadius: 20,
-        backgroundColor: '#c7d2fe',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginRight: 10,
+        width: 44,
+        height: 44,
+        borderRadius: 22,
+        backgroundColor: "#e0e7ff",
+        alignItems: "center",
+        justifyContent: "center",
+        marginRight: 12,
     },
+
     avatarText: {
         fontSize: 18,
-        fontWeight: 800,
-        color: '#1e293b',
+        fontWeight: "800",
+        color: "#1e293b",
     },
+
     cardHeaderText: {
         flex: 1,
     },
+
     projectName: {
         fontSize: 18,
-        fontWeight: 800,
-        color: '#0f172a',
+        fontWeight: "800",
+        color: "#0f172a",
     },
+
     subText: {
-        fontSize: 16,
-        fontWeight: 600,
-        color: '#64748b',
+        fontSize: 14,
+        fontWeight: "600",
+        color: "#64748b",
         marginTop: 2,
     },
+
     innerDivider: {
         height: 1,
-        backgroundColor: '#e5e7eb',
-        marginVertical: 12,
+        backgroundColor: "#e5e7eb",
+        marginVertical: 14,
     },
-    detailLabel: {
-        fontSize: 14,
-        color: '#64748b',
-        fontWeight: 400,
-    },
-    detailValue: {
-        fontSize: 14,
-        color: '#0f172a',
-        fontWeight: 400,
-        marginTop: 2,
-    },
+
+    /* ===== DETAILS ===== */
     detailRow: {
-        flexDirection: 'row',
-        marginBottom: 18,
+        flexDirection: "row",
+        marginBottom: 14,
     },
+
     detailIcon: {
         width: 18,
         height: 18,
-        tintColor: '#0f172a',
-        marginRight: 8,
-        marginTop: 4,
+        tintColor: "#2563eb",
+        marginRight: 10,
+        marginTop: 3,
     },
+
+    detailLabel: {
+        fontSize: 13,
+        color: "#64748b",
+    },
+
+    detailValue: {
+        fontSize: 14,
+        color: "#0f172a",
+        fontWeight: "600",
+        marginTop: 2,
+    },
+
+    /* ===== PROGRESS ===== */
     progressTrack: {
-        height: 5,
-        overflow: 'hidden',
+        height: 6,
+        backgroundColor: "#e5e7eb",
+        borderRadius: 6,
+        overflow: "hidden",
+        marginTop: 6,
     },
+
     progressFill: {
-        height: '100%',
-        backgroundColor: '#2563eb',
-        borderRadius: 5,
+        height: "100%",
+        backgroundColor: "#2563eb",
+        borderRadius: 6,
     },
-})
+});

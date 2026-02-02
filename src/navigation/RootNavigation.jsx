@@ -11,27 +11,30 @@ const Stack = createNativeStackNavigator();
 export default function RootNavigation() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false, 
+        }}>
 
         <Stack.Screen
           name="GoogleAuth"
           component={GoogleAuthScreen}
-          options={{ headerShown: false }}
         />
 
         <Stack.Screen
           name="Tabs"
           component={BottomTabs}
-          options={{ headerShown: false }}
+          
         />
 
         <Stack.Screen
           name="Notification"
           component={NotificationsScreen}
-          options={{ headerShown: false }}
+         
         />
 
-        <Stack.Screen name="TaskList" component={TaskListScreen} />
+        <Stack.Screen name="TaskList" component={TaskListScreen}
+           />
 
       </Stack.Navigator>
     </NavigationContainer>

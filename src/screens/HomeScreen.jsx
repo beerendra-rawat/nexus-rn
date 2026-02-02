@@ -5,21 +5,17 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from "@expo/vector-icons";
+import { StatusBar } from "expo-status-bar";
+
 import { welcomeData } from "../data/GretingData";
-import { StatusBar } from 'expo-status-bar';
+import { notificationsData } from "../data/NotificationsData";
 
-import { notificationsData } from '../data/NotificationsData';
-
-const unreadCount = notificationsData.filter(
-  item => !item.isRead
-).length;
-
-
-const { width } = Dimensions.get('window');
+const unreadCount = notificationsData.filter(item => !item.isRead).length;
+const { width } = Dimensions.get("window");
 
 export default function HomeScreen({ navigation }) {
 
@@ -30,63 +26,72 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <StatusBar style="drak" />
+      <StatusBar style="dark" />
+
+      {/* Background */}
       <Image
         source={require("../assets/img/bgImg.png")}
         style={styles.background}
         resizeMode="cover"
       />
 
-      <View style={styles.top}>
-        <Image
-          source={require('../assets/img/tcz.png')}
-          style={styles.logo}
-        />
-        <TouchableOpacity style={styles.notificationIcon}
-        onPress={() => navigation.navigate('Notification')}>
-          <Ionicons
-            name="notifications-outline"
-            size={28}
-            color="#0f172a"
+      {/* Screen Padding Wrapper */}
+      <View style={styles.container}>
+
+        {/* Top Header */}
+        <View style={styles.top}>
+          <Image
+            source={require("../assets/img/tcz.png")}
+            style={styles.logo}
           />
-          {unreadCount > 0 && (
-            <View style={styles.badge}>
-              <Text style={styles.badgeText}>{unreadCount}</Text>
-            </View>
-          )}
-        </TouchableOpacity>
-      </View>
 
+          <TouchableOpacity
+            style={styles.notificationIcon}
+            onPress={() => navigation.navigate("Notification")}
+          >
+            <Ionicons
+              name="notifications-outline"
+              size={28}
+              color="#0f172a"
+            />
 
-      <View style={styles.content}>
-        <Text style={styles.hello}>
-          {welcome.greeting},
-        </Text>
-        <Text style={styles.name}>Beerendra</Text>
+            {unreadCount > 0 && (
+              <View style={styles.badge}>
+                <Text style={styles.badgeText}>{unreadCount}</Text>
+              </View>
+            )}
+          </TouchableOpacity>
+        </View>
 
-        <Text style={styles.subTitle}>
-          {welcome.subtitle}
-        </Text>
+        {/* Content */}
+        <View style={styles.content}>
+          <Text style={styles.hello}>{welcome.greeting},</Text>
+          <Text style={styles.name}>Beerendra</Text>
 
-        <View style={styles.quoteBox}>
-          <Text style={styles.quote}>
-            “{welcome.quote}”
-          </Text>
-          <Text style={styles.author}>
-            {welcome.author.toUpperCase()}
-          </Text>
+          <Text style={styles.subTitle}>{welcome.subtitle}</Text>
+
+          <View style={styles.quoteBox}>
+            <Text style={styles.quote}>“{welcome.quote}”</Text>
+            <Text style={styles.author}>
+              {welcome.author.toUpperCase()}
+            </Text>
+          </View>
         </View>
 
       </View>
-
     </SafeAreaView>
   );
 }
-
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
+  },
+
+  container: {
+    flex: 1,
+    paddingHorizontal: 24, // ✅ FULL SCREEN HORIZONTAL PADDING
+    paddingTop: 24,        // ✅ TOP PADDING
   },
 
   background: {
@@ -97,62 +102,70 @@ const styles = StyleSheet.create({
   },
 
   top: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingTop: 8,
-    paddingHorizontal: 18,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
+
   logo: {
     width: width * 0.35,
     height: 45,
-    resizeMode: 'cover',
-    paddingLeft: 24,
+    resizeMode: "contain",
+  },
+
+  notificationIcon: {
+    position: "relative",
   },
 
   badge: {
-    position: 'absolute',
-    right: 6,
-    top: 1,
-    backgroundColor: '#FF3B30',
+    position: "absolute",
+    right: -2,
+    top: -2,
+    backgroundColor: "#FF3B30",
     borderRadius: 10,
     minWidth: 18,
     height: 18,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginHorizontal: 3,
+    justifyContent: "center",
+    alignItems: "center",
   },
+
   badgeText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 12,
-    fontWeight: 600,
+    fontWeight: "600",
   },
 
   content: {
     alignItems: "center",
-    paddingTop: 200,
+    marginTop: 160,
   },
+
   hello: {
     fontSize: 42,
-    fontWeight: 800,
+    fontWeight: "800",
     color: "#0f172a",
   },
+
   name: {
     fontSize: 38,
-    fontWeight: 800,
+    fontWeight: "800",
     color: "#3b5bfd",
     marginBottom: 16,
   },
+
   subTitle: {
     fontSize: 18,
     color: "#94a3b8",
     lineHeight: 24,
+    textAlign: "center",
   },
+
   quoteBox: {
-    marginTop: 200,
+    marginTop: 50,
     alignItems: "center",
     paddingHorizontal: 12,
   },
+
   quote: {
     fontSize: 16,
     color: "#475569",
@@ -160,6 +173,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 8,
   },
+
   author: {
     fontSize: 12,
     color: "#94a3b8",

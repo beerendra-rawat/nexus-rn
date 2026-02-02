@@ -1,110 +1,192 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import dayjs from "dayjs";
+import { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function TimesheetDayCard({ date, status = "2 Tasks", hours = "0h 00m", onPress }) {
-    const day = dayjs(date);
+export default function TimesheetDayCard({ date, onPress }) {
+  const day = dayjs(date);
 
-    const isToday = day.isSame(dayjs(), "day");
+  const isToday = day.isSame(dayjs(), "day");
+  const isFuture = day.isAfter(dayjs(), "day");
 
+  // ✅ Weekend check (Saturday & Sunday)
+  const isWeekend = day.day() === 0 || day.day() === 6;
 
-    return (
-        <TouchableOpacity style={[ styles.card, isToday && { backgroundColor: "#EDEAFF" }]}
-            onPress={onPress}
-        >
+  const [taskCount, setTaskCount] = useState(0);
+  const [totalHours, setTotalHours] = useState(0);
 
+  const SUMMARY_KEY = `SUMMARY_${day.format("YYYY-MM-DD")}`;
 
-            {/* LEFT DATE CARD */}
-            <View style={styles.dateCard}>
-                <View style={styles.monthBox}>
-                    <Text style={styles.monthText}>{day.format("MMM")}</Text>
-                </View>
+  useEffect(() => {
+    if (!isWeekend) {
+      loadSummary();
+    } else {
+      setTaskCount(0);
+      setTotalHours(0);
+    }
+  }, [date]);
 
-                <View style={styles.dayBox}>
-                    <Text style={styles.dayNumber}>{day.format("DD")}</Text>
-                </View>
-            </View>
+  const loadSummary = async () => {
+    try {
+      const saved = await AsyncStorage.getItem(SUMMARY_KEY);
+      if (saved) {
+        const { totalTasks, totalHours } = JSON.parse(saved);
+        setTaskCount(totalTasks || 0);
+        setTotalHours(totalHours || 0);
+      } else {
+        setTaskCount(0);
+        setTotalHours(0);
+      }
+    } catch (error) {
+      console.log("Error loading summary:", error);
+    }
+  };
 
-            {/* MIDDLE INFO */}
-            <View style={styles.info}>
-                <Text style={styles.dayName}>{day.format("dddd")}</Text>
-                <Text style={styles.status}>{status}</Text>
-            </View>
+  return (
+    <TouchableOpacity
+      disabled={isFuture || isWeekend}
+      onPress={onPress}
+      activeOpacity={0.7}
+      style={[
+        styles.card,
+        isToday && !isWeekend && styles.today,
+        isWeekend && styles.weekOffCard,
+      ]}
+    >
+      {/* LEFT DATE */}
+      <View style={styles.dateCard}>
+        <View style={styles.monthBox}>
+          <Text style={styles.monthText}>{day.format("MMM")}</Text>
+        </View>
+        <View style={styles.dayBox}>
+          <Text style={styles.dayNumber}>{day.format("DD")}</Text>
+        </View>
+      </View>
 
-            {/* RIGHT HOURS */}
-            <View style={styles.right}>
-                <Text style={styles.hours}>{hours}</Text>
-                <Ionicons name="chevron-forward" size={18} color="#B0B0B0" />
-            </View>
-        </TouchableOpacity>
-    );
+      {/* CENTER INFO */}
+      <View style={styles.info}>
+        <Text style={styles.dayName}>{day.format("dddd")}</Text>
+
+        {isWeekend ? (
+          <Text style={styles.weekOffText}>Week Off</Text>
+        ) : taskCount > 0 ? (
+          <Text style={styles.status}>
+            {taskCount} {taskCount === 1 ? "Task" : "Tasks"}
+          </Text>
+        ) : (
+          <Text style={styles.noTask}>No Tasks</Text>
+        )}
+      </View>
+
+      {/* RIGHT SIDE */}
+      <View style={styles.right}>
+        {!isWeekend && (
+          <>
+            <Text style={styles.hours}>
+              {taskCount > 0 ? `${totalHours}h` : "--"}
+            </Text>
+
+            {!isFuture && (
+              <Ionicons
+                name="chevron-forward"
+                size={18}
+                color="#B0B0B0"
+              />
+            )}
+          </>
+        )}
+      </View>
+    </TouchableOpacity>
+  );
 }
+
 const styles = StyleSheet.create({
-    card: {
-        flexDirection: "row",
-        alignItems: "center",
-        // backgroundColor: "#F5F5F7",
-        borderRadius: 14,
-        padding: 12,
-        marginBottom: 10,
-    },
+  card: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderRadius: 14,
+    padding: 12,
+    marginBottom: 10,
+    backgroundColor: "#F5F5F7",
+  },
 
-    /* LEFT DATE CARD */
-    dateCard: {
-        width: 52,
-        borderRadius: 10,
-        overflow: "hidden",
-        marginRight: 12,
-    },
+  today: {
+    backgroundColor: "#EDEAFF",
+  },
 
-    monthBox: {
-        backgroundColor: "#6C63FF",
-        alignItems: "center",
-        paddingVertical: 4,
-    },
+  weekOffCard: {
+    backgroundColor: "#F2F2F2",
+    opacity: 0.75,
+  },
 
-    monthText: {
-        color: "#fff",
-        fontSize: 12,
-        fontWeight: "600",
-    },
+  dateCard: {
+    width: 52,
+    borderRadius: 10,
+    overflow: "hidden",
+    marginRight: 12,
+  },
 
-    dayBox: {
-        backgroundColor: "#fff",
-        alignItems: "center",
-        paddingVertical: 6,
-    },
+  monthBox: {
+    backgroundColor: "#6C63FF",
+    alignItems: "center",
+    paddingVertical: 4,
+  },
 
-    dayNumber: {
-        fontSize: 18,
-        fontWeight: "700",
-    },
+  monthText: {
+    color: "#fff",
+    fontSize: 12,
+    fontWeight: "600",
+  },
 
-    /* MIDDLE */
-    info: {
-        flex: 1,
-    },
+  dayBox: {
+    backgroundColor: "#fff",
+    alignItems: "center",
+    paddingVertical: 6,
+  },
 
-    dayName: {
-        fontSize: 15,
-        fontWeight: "600",
-    },
+  dayNumber: {
+    fontSize: 18,
+    fontWeight: "700",
+  },
 
-    status: {
-        fontSize: 12,
-        color: "#888",
-        marginTop: 2,
-    },
+  info: {
+    flex: 1,
+  },
 
-    /* RIGHT */
-    right: {
-        flexDirection: "row",
-        alignItems: "center",
-    },
+  dayName: {
+    fontSize: 15,
+    fontWeight: "600",
+  },
 
-    hours: {
-        fontSize: 12,
-        color: "#999",
-        marginRight: 6,
-    },
+  status: {
+    fontSize: 12,
+    color: "#252424",
+    marginTop: 2,
+  },
+
+  noTask: {
+    fontSize: 12,
+    color: "#252424",
+    marginTop: 2,
+    fontStyle: "italic",
+  },
+
+  weekOffText: {
+    fontSize: 12,
+    color: "#252424",
+    marginTop: 2,
+    fontStyle: "italic",
+  },
+
+  right: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  hours: {
+    fontSize: 12,
+    color: "#2563eb",
+    marginRight: 6,
+  },
 });

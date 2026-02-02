@@ -1,27 +1,25 @@
-import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { useState } from 'react';
-import { notificationsData } from '../data/NotificationsData';
+import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { notificationsData } from "../data/NotificationsData";
+
 export default function NotificationsScreen({ navigation }) {
-  const [notifications, setNotifications] = useState(notificationsData);
+  const [notifications] = useState(notificationsData);
 
-  const renderItem = ({ item }) => {
-    return (
-      <View style={[styles.card, !item.isRead && styles.unreadCard]}>
-        <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.message}>{item.message}</Text>
+  const renderItem = ({ item }) => (
+    <View style={[styles.card, !item.isRead && styles.unreadCard]}>
+      <Text style={styles.title}>{item.title}</Text>
+      <Text style={styles.message}>{item.message}</Text>
 
-        <View style={styles.footer}>
-          <Text style={styles.time}>
-            {item.date} • {item.time}
-          </Text>
-
-          {!item.isRead && <Text style={styles.unread}>Unread</Text>}
-        </View>
+      <View style={styles.footer}>
+        <Text style={styles.time}>
+          {item.date} • {item.time}
+        </Text>
+        {!item.isRead && <Text style={styles.unread}>Unread</Text>}
       </View>
-    );
-  };
+    </View>
+  );
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -30,100 +28,125 @@ export default function NotificationsScreen({ navigation }) {
         style={styles.background}
         resizeMode="cover"
       />
+
+      {/* Screen Padding Wrapper */}
       <View style={styles.container}>
 
+        {/* Header */}
         <View style={styles.topRow}>
-          <TouchableOpacity style={styles.btnWrap}
-            onPress={() => navigation.goBack()}>
-            <Image style={styles.backBtn} source={require('../assets/img/leftArrow.png')} />
+          <TouchableOpacity
+            style={styles.backButton}
+            onPress={() => navigation.goBack()}
+          >
+            <Image
+              source={require("../assets/img/leftArrow.png")}
+              style={styles.backIcon}
+            />
           </TouchableOpacity>
+
           <Text style={styles.header}>Notifications</Text>
         </View>
 
-
+        {/* List */}
         <FlatList
           data={notifications}
           keyExtractor={(item) => item.id}
           renderItem={renderItem}
-          contentContainerStyle={[{ paddingBottom: 20 }, styles.flatList] }
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.listContent}
         />
       </View>
     </SafeAreaView>
-
   );
 }
-
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
+
+  container: {
+    flex: 1,
+    paddingHorizontal: 24, // ✅ HORIZONTAL PADDING
+    paddingTop: 24,        // ✅ TOP PADDING
+  },
+
   background: {
     position: "absolute",
     width: "100%",
     height: "110%",
     transform: [{ rotate: "180deg" }],
   },
-  container: {
-    paddingHorizontal: 20,
-  },
+
   topRow: {
-    flexDirection: 'row',
-    gap: 25,
-    paddingVertical: 12,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 16,
+    marginBottom: 20,
   },
-  btnWrap: {
-    width: 20,
-    height: 20,
+
+  backButton: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    alignItems: "center",
+    justifyContent: "center",
   },
-  backBtn: {
-    marginLeft: 5,
-    marginTop: 6,
-    alignContent: 'center',
-    alignItems: 'center',
+
+  backIcon: {
     width: 18,
     height: 18,
+    resizeMode: "contain",
   },
+
   header: {
     fontSize: 20,
-    fontWeight: '700',
-    // marginVertical: 16,
+    fontWeight: "700",
+    color: "#0f172a",
   },
+
+  listContent: {
+    paddingBottom: 24,
+  },
+
   card: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     padding: 18,
-    borderRadius: 10,
+    borderRadius: 12,
     marginBottom: 12,
     elevation: 2,
   },
+
   unreadCard: {
     borderLeftWidth: 4,
-    borderLeftColor: '#007AFF',
+    borderLeftColor: "#007AFF",
   },
+
   title: {
     fontSize: 15,
-    fontWeight: '600',
+    fontWeight: "600",
     marginBottom: 6,
   },
+
   message: {
     fontSize: 13,
-    color: '#555',
+    color: "#555",
   },
+
   footer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginTop: 8,
   },
+
   time: {
     fontSize: 11,
-    color: '#888',
+    color: "#888",
   },
+
   unread: {
     fontSize: 11,
-    color: '#007AFF',
-    fontWeight: '600',
+    color: "#007AFF",
+    fontWeight: "600",
   },
-  flatList: {
-    marginTop: 20,
-  }
 });
