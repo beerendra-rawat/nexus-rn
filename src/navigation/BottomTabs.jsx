@@ -16,7 +16,7 @@ export default function BottomTabs() {
         tabBarActiveTintColor: '#2563eb',
         tabBarInactiveTintColor: '#64748b',
         tabBarStyle: {
-          height: 80,
+          height: 90,
           backgroundColor: '#ffffff',
           borderTopWidth: 0.5,
           borderTopColor: '#e5e7eb',
@@ -35,7 +35,6 @@ export default function BottomTabs() {
           ),
         }}
       />
-
       <Tab.Screen
         name="Timesheet"
         component={SearchScreen}
@@ -45,7 +44,6 @@ export default function BottomTabs() {
           ),
         }}
       />
-
       <Tab.Screen
         name="Project"
         component={MyDeskScreen}
@@ -55,7 +53,6 @@ export default function BottomTabs() {
           ),
         }}
       />
-
       <Tab.Screen
         name="Profile"
         component={ProfileScreen}

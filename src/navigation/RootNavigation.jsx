@@ -16,25 +16,10 @@ export default function RootNavigation() {
           headerShown: false, 
         }}>
 
-        <Stack.Screen
-          name="GoogleAuth"
-          component={GoogleAuthScreen}
-        />
-
-        <Stack.Screen
-          name="Tabs"
-          component={BottomTabs}
-          
-        />
-
-        <Stack.Screen
-          name="Notification"
-          component={NotificationsScreen}
-         
-        />
-
-        <Stack.Screen name="TaskList" component={TaskListScreen}
-           />
+        <Stack.Screen name="GoogleAuth" component={GoogleAuthScreen} />
+        <Stack.Screen name="Tabs" component={BottomTabs} />
+        <Stack.Screen name="Notification" component={NotificationsScreen} />
+        <Stack.Screen name="TaskList" component={TaskListScreen} />
 
       </Stack.Navigator>
     </NavigationContainer>

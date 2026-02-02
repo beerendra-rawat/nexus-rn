@@ -1,4 +1,11 @@
-import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -28,11 +35,8 @@ export default function NotificationsScreen({ navigation }) {
         style={styles.background}
         resizeMode="cover"
       />
-
-      {/* Screen Padding Wrapper */}
       <View style={styles.container}>
 
-        {/* Header */}
         <View style={styles.topRow}>
           <TouchableOpacity
             style={styles.backButton}
@@ -43,11 +47,9 @@ export default function NotificationsScreen({ navigation }) {
               style={styles.backIcon}
             />
           </TouchableOpacity>
-
           <Text style={styles.header}>Notifications</Text>
         </View>
 
-        {/* List */}
         <FlatList
           data={notifications}
           keyExtractor={(item) => item.id}
@@ -64,27 +66,23 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
   },
-
   container: {
     flex: 1,
-    paddingHorizontal: 24, // ✅ HORIZONTAL PADDING
-    paddingTop: 24,        // ✅ TOP PADDING
+    paddingHorizontal: 24,
+    paddingTop: 24,
   },
-
   background: {
     position: "absolute",
     width: "100%",
     height: "110%",
     transform: [{ rotate: "180deg" }],
   },
-
   topRow: {
     flexDirection: "row",
     alignItems: "center",
     gap: 16,
     marginBottom: 20,
   },
-
   backButton: {
     width: 36,
     height: 36,
@@ -92,23 +90,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-
   backIcon: {
     width: 18,
     height: 18,
     resizeMode: "contain",
   },
-
   header: {
     fontSize: 20,
-    fontWeight: "700",
+    fontWeight: "600",
     color: "#0f172a",
   },
-
   listContent: {
     paddingBottom: 24,
   },
-
   card: {
     backgroundColor: "#fff",
     padding: 18,
@@ -116,34 +110,28 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     elevation: 2,
   },
-
   unreadCard: {
     borderLeftWidth: 4,
     borderLeftColor: "#007AFF",
   },
-
   title: {
     fontSize: 15,
     fontWeight: "600",
     marginBottom: 6,
   },
-
   message: {
     fontSize: 13,
     color: "#555",
   },
-
   footer: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: 8,
   },
-
   time: {
     fontSize: 11,
     color: "#888",
   },
-
   unread: {
     fontSize: 11,
     color: "#007AFF",

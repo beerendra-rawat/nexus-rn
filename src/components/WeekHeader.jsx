@@ -6,7 +6,7 @@ export default function WeekHeader({
   weekStart,
   onPrev,
   onNext,
-  onCalendarPress
+  onCalendarPress,
 }) {
   const start = dayjs(weekStart);
   const end = start.add(6, "day");
@@ -20,58 +20,67 @@ export default function WeekHeader({
 
   return (
     <View style={styles.container}>
+      {/* Left + Center */}
       <View style={styles.dateBox}>
         <TouchableOpacity onPress={onPrev} style={styles.arrowBtn}>
-          <Ionicons name="chevron-back" size={28} />
+          <Ionicons name="chevron-back" size={26} />
         </TouchableOpacity>
 
         <Text style={styles.dateText}>
           {start.format("MMM DD")} - {end.format("MMM DD, YYYY")}
         </Text>
 
-        {/* 🔒 disable ONLY next arrow */}
         <TouchableOpacity
-          onPress={!isCurrentWeek ? onNext : null}
+          onPress={!isCurrentWeek ? onNext : undefined}
           disabled={isCurrentWeek}
-          style={[styles.arrowBtn, isCurrentWeek && { opacity: 0.3 }]}
+          style={[styles.arrowBtn, isCurrentWeek && styles.disabled]}
         >
-          <Ionicons name="chevron-forward" size={28} />
+          <Ionicons name="chevron-forward" size={26} />
         </TouchableOpacity>
       </View>
 
-      {/* ✅ calendar ALWAYS active */}
-      <TouchableOpacity onPress={onCalendarPress} style={styles.calendarBtn}>
-        <Ionicons name="calendar-outline" size={28} />
+      {/* Right */}
+      <TouchableOpacity
+        onPress={onCalendarPress}
+        style={styles.calendarBtn}
+      >
+        <Ionicons name="calendar-outline" size={26} />
       </TouchableOpacity>
     </View>
   );
 }
+
 const styles = StyleSheet.create({
+  /* Uses parent padding (24) */
   container: {
     flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginTop: 8,
+    marginBottom: 12,
   },
 
   dateBox: {
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: 24,
-    height: 44,
   },
 
   arrowBtn: {
-    padding: 10,
+    padding: 6,
+  },
+
+  disabled: {
+    opacity: 0.3,
   },
 
   dateText: {
     fontSize: 16,
-    fontWeight: 600,
+    fontWeight: "600",
     marginHorizontal: 12,
   },
 
   calendarBtn: {
-    borderRadius: 14,
-    justifyContent: "center",
-    right: 20,
-    top: 3,
-  }
+    padding: 6,
+    borderRadius: 12,
+  },
 });

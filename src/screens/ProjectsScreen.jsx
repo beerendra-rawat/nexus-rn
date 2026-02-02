@@ -1,4 +1,10 @@
-import { StyleSheet, Image, Text, View, Pressable } from "react-native";
+import {
+    StyleSheet,
+    Image,
+    Text,
+    View,
+    Pressable
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState } from "react";
 
@@ -25,18 +31,14 @@ export default function ProjectsScreen() {
 
     return (
         <SafeAreaView style={styles.safeArea}>
-            {/* Background Image */}
             <Image
                 source={require("../assets/img/bgImg.png")}
                 style={styles.background}
                 resizeMode="cover"
             />
-
-            {/* Global Padding Wrapper */}
             <View style={styles.container}>
                 <Text style={styles.title}>Allocations</Text>
 
-                {/* Tabs */}
                 <View style={styles.tabs}>
                     {allocationsData.tabs.map(tab => (
                         <Pressable
@@ -54,55 +56,44 @@ export default function ProjectsScreen() {
                         </Pressable>
                     ))}
                 </View>
-
                 <View style={styles.divider} />
-
-                {/* Tab Content */}
                 {renderContent()}
             </View>
         </SafeAreaView>
     );
 }
-
 const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
         backgroundColor: "#fff",
     },
-
     background: {
         position: "absolute",
         width: "100%",
         height: "110%",
         transform: [{ rotate: "180deg" }],
     },
-
-    /* ✅ GLOBAL PADDING APPLIED HERE */
     container: {
         flex: 1,
         paddingHorizontal: 24,
         paddingTop: 24,
     },
-
     title: {
         fontSize: 26,
         fontWeight: "800",
         color: "#0f172a",
         marginBottom: 16,
     },
-
     tabs: {
         flexDirection: "row",
         gap: 18,
         marginTop: 12,
     },
-
     tabText: {
         fontSize: 14,
         color: "#64748b",
         fontWeight: "600",
     },
-
     activeTab: {
         color: "#0f172a",
         fontSize: 16,
@@ -111,7 +102,6 @@ const styles = StyleSheet.create({
         borderBottomColor: "#2563eb",
         paddingBottom: 6,
     },
-
     divider: {
         height: 1,
         backgroundColor: "#e5e7eb",
