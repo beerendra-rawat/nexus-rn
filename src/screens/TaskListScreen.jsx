@@ -11,6 +11,23 @@ import { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+const isValidTime = (time) => {
+    // HH:MM (0–16 hours)
+    const regex = /^([0-9]|1[0-6]):[0-5][0-9]$/;
+    return regex.test(time);
+};
+
+const timeToDecimal = (time) => {
+    const [h, m] = time.split(":").map(Number);
+    return h + m / 60;
+};
+
+const decimalToTime = (decimal) => {
+    const h = Math.floor(decimal);
+    const m = Math.round((decimal - h) * 60);
+    return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
+};
+
 export default function TaskListScreen({ route, navigation }) {
     const { date } = route.params;
 
@@ -30,48 +47,52 @@ export default function TaskListScreen({ route, navigation }) {
         if (saved) setTasks(JSON.parse(saved));
     };
 
-    const totalHours = tasks.reduce((sum, t) => sum + Number(t.hours || 0), 0);
+    const totalHoursDecimal = tasks.reduce(
+        (sum, t) => sum + Number(t.hours || 0), 0);
 
     const addTask = async () => {
         setError("");
 
-        if (totalHours >= 16) {
-            setError("You have already entered 16 hours for today");
-            return;
-        }
         if (!task.trim() || !hours.trim()) {
-            setError("Task name and hours are required");
+            setError("Task name and time are required");
             return;
         }
-        const enteredHours = Number(hours);
 
-        if (isNaN(enteredHours) || enteredHours <= 0) {
-            setError("Please enter a valid number of hours");
+        if (!isValidTime(hours)) {
+            setError("Enter time in HH:MM format (e.g. 1:30)");
             return;
         }
-        if (enteredHours > 16) {
-            setError("Maximum allowed hours per task is 16");
+
+        const enteredDecimal = timeToDecimal(hours);
+
+        if (enteredDecimal <= 0) {
+            setError("Time must be greater than 0");
             return;
         }
-        if (totalHours + enteredHours > 16) {
-            setError(`Only ${16 - totalHours} hour(s) left for today`);
+
+        if (totalHoursDecimal + enteredDecimal > 16) {
+            setError(
+                `Only ${decimalToTime(16 - totalHoursDecimal)} hours left`
+            );
             return;
         }
+
         const newTask = {
             id: Date.now().toString(),
             task: task.trim(),
-            hours: enteredHours,
+            time: hours,               // HH:MM (display)
+            hours: enteredDecimal,     // decimal (calculation)
         };
+
         const updated = [...tasks, newTask];
         setTasks(updated);
-
         await AsyncStorage.setItem(TASK_KEY, JSON.stringify(updated));
 
         setTask("");
         setHours("");
     };
 
-    const isDayFull = totalHours >= 16;
+    const isDayFull = totalHoursDecimal >= 16;
 
     return (
         <SafeAreaView style={styles.safeArea}>
@@ -82,6 +103,7 @@ export default function TaskListScreen({ route, navigation }) {
             />
 
             <View style={styles.container}>
+
                 <View style={styles.headerRow}>
                     <TouchableOpacity onPress={() => navigation.goBack()}>
                         <Image
@@ -92,15 +114,14 @@ export default function TaskListScreen({ route, navigation }) {
                     <Text style={styles.title}>Tasks – {date}</Text>
                 </View>
 
-                {isDayFull ? (
-                    <Text style={styles.fullText}>
-                        You have already entered 16 hours for today
-                    </Text>
-                ) : (
-                    <Text style={styles.totalText}>
-                        Total Hours: {totalHours} / 16
-                    </Text>
-                )}
+                <Text
+                    style={[
+                        styles.totalText,
+                        isDayFull && { color: "#dc2626" },
+                    ]}
+                >
+                    Total Time: {decimalToTime(totalHoursDecimal)} / 16:00
+                </Text>
 
                 <TextInput
                     placeholder="Task name"
@@ -111,12 +132,11 @@ export default function TaskListScreen({ route, navigation }) {
                 />
 
                 <TextInput
-                    placeholder="Hours (max 16)"
+                    placeholder="Hours (HH:MM)"
                     value={hours}
                     onChangeText={setHours}
-                    keyboardType="numeric"
-                    maxLength={2}
                     editable={!isDayFull}
+                    keyboardType="numeric"
                     style={styles.input}
                 />
 
@@ -138,7 +158,7 @@ export default function TaskListScreen({ route, navigation }) {
                     renderItem={({ item }) => (
                         <View style={styles.taskRow}>
                             <Text style={styles.taskText}>{item.task}</Text>
-                            <Text style={styles.hoursText}>{item.hours}h</Text>
+                            <Text style={styles.hoursText}>{item.time}</Text>
                         </View>
                     )}
                 />
@@ -183,12 +203,6 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: "600",
         color: "#2563eb",
-    },
-    fullText: {
-        marginBottom: 12,
-        fontSize: 14,
-        fontWeight: "600",
-        color: "#dc2626",
     },
     input: {
         borderWidth: 1,
