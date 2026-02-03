@@ -6,7 +6,6 @@ import {
     FlatList,
     StyleSheet,
     Image,
-    Button,
 } from "react-native";
 import { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -26,9 +25,10 @@ export default function TaskListScreen({ route, navigation }) {
     }, []);
 
     const loadTasks = async () => {
-        const savedTasks = await AsyncStorage.getItem(TASK_KEY);
-        if (savedTasks) {
-            setTasks(JSON.parse(savedTasks));
+        const data = await AsyncStorage.getItem(TASK_KEY);
+        console.log("saved data is : ", data)
+        if (data) {
+            setTasks(JSON.parse(data));
         }
     };
 
@@ -41,22 +41,14 @@ export default function TaskListScreen({ route, navigation }) {
             hours: Number(hours),
         };
 
-        const updatedTasks = [...tasks, newTask];
-        setTasks(updatedTasks);
+        const updated = [...tasks, newTask];
+        setTasks(updated);
+        await AsyncStorage.setItem(TASK_KEY, JSON.stringify(updated));
 
-        await AsyncStorage.setItem(TASK_KEY, JSON.stringify(updatedTasks));
         setTask("");
         setHours("");
     };
 
-    // const cleareData = async () => {
-    //     try {
-    //         await AsyncStorage.clear();
-    //         console.log("All AsyncStorage data cleared successfully");
-    //     } catch (error) {
-    //         console.error("Error clearing AsyncStorage:", error);
-    //     }
-    // };
     return (
         <SafeAreaView style={styles.safeArea}>
             <Image
@@ -84,22 +76,33 @@ export default function TaskListScreen({ route, navigation }) {
                 />
 
                 <TextInput
-                    placeholder="Hours (eg: 2)"
+                    placeholder="Hours (0 - 16)"
                     value={hours}
-                    onChangeText={setHours}
-                    // keyboardType="numeric"
+                    keyboardType="numeric"
                     style={styles.input}
+                    onChangeText={(text) => {
+                        // allow only numbers (max 2 digits)
+                        if (!/^\d{0,2}$/.test(text)) return;
+                        const num = Number(text);
+                        // if above 16, force set 16
+                        if (num > 16) {
+                            setHours("16");
+                        } else {
+                            setHours(text);
+                        }
+                    }}
                 />
 
-                <TouchableOpacity style={styles.addBtn} onPress={addTask}>
+                <TouchableOpacity
+                    style={styles.addBtn}
+                    onPress={addTask}
+                >
                     <Text style={styles.addText}>+ Add Task</Text>
                 </TouchableOpacity>
 
                 <FlatList
                     data={tasks}
                     keyExtractor={(item) => item.id}
-                    showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ paddingBottom: 24 }}
                     renderItem={({ item }) => (
                         <View style={styles.taskRow}>
                             <Text style={styles.taskText}>{item.task}</Text>
@@ -107,13 +110,10 @@ export default function TaskListScreen({ route, navigation }) {
                         </View>
                     )}
                 />
-
-                {/* <Button onPress={cleareData} title="cleare data" /> */}
             </View>
         </SafeAreaView>
     );
 }
-
 const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
@@ -139,12 +139,10 @@ const styles = StyleSheet.create({
     backIcon: {
         width: 20,
         height: 20,
-        resizeMode: "contain",
     },
     title: {
         fontSize: 20,
         fontWeight: "700",
-        color: "#0f172a",
     },
     input: {
         borderWidth: 1,
@@ -161,6 +159,9 @@ const styles = StyleSheet.create({
         alignItems: "center",
         marginBottom: 16,
     },
+    disabledBtn: {
+        backgroundColor: "#94a3b8",
+    },
     addText: {
         color: "#fff",
         fontWeight: "600",
@@ -174,7 +175,6 @@ const styles = StyleSheet.create({
     },
     taskText: {
         fontSize: 14,
-        color: "#0f172a",
     },
     hoursText: {
         fontSize: 14,
