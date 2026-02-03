@@ -23,7 +23,7 @@ export default function ProfileScreen({ navigation }) {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={styles.safeArea} edges={["top"]}>
       <Image
         source={require('../assets/img/bgImg.png')}
         style={styles.background}

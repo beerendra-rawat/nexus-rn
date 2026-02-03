@@ -41,7 +41,7 @@ export default function TimesheetScreen() {
     };
 
     return (
-        <SafeAreaView style={styles.safeArea}>
+        <SafeAreaView style={styles.safeArea} edges={["top"]} >
             <Image
                 source={require("../assets/img/bgImg.png")}
                 style={styles.background}
