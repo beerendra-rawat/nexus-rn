@@ -240,16 +240,18 @@ const styles = StyleSheet.create({
     color: '#2563eb',
   },
   logOutBtn: {
-    borderWidth: 2,
-    borderColor: '#2350ba',
-    paddingVertical: 16,
+    backgroundColor: "#E3F2FD",
+    borderWidth: 1.5,
+    borderColor: "#2196F3",
     borderRadius: 12,
-    alignItems: 'center',
-    marginBottom: 16,
+    paddingVertical: 14,
+    alignItems: "center",
   },
+
   btnText: {
-    fontSize: 18,
-    fontWeight: '800',
-    color: '#000',
+    color: "#0D47A1",
+    fontSize: 16,
+    fontWeight: "600",
   },
+
 });

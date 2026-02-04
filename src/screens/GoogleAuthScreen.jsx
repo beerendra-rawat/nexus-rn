@@ -170,12 +170,13 @@ export default function GoogleAuthScreen({ navigation }) {
 
   return (
     <LinearGradient
-      colors={['#2F66C5', '#8FC3DA', '#2F66C5']}
+      colors={['#2F6BCB', '#7FB2F0', '#4A90E2']}
       locations={[0, 0.5, 1]}
       start={{ x: 0.5, y: 0 }}
       end={{ x: 0.5, y: 1 }}
       style={styles.container}
     >
+
       <SafeAreaView style={styles.safeAreaView} edges={["top"]}>
         <StatusBar style="light" />
         <View style={styles.container}>

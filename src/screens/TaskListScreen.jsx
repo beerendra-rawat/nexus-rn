@@ -6,6 +6,7 @@ import {
     FlatList,
     StyleSheet,
     Image,
+    Button,
 } from "react-native";
 import { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -32,13 +33,22 @@ export default function TaskListScreen({ route, navigation }) {
         }
     };
 
+    const totalHours = tasks.reduce((sum, item) => sum + item.hours, 0);
+
     const addTask = async () => {
         if (!task || !hours) return;
+
+        const enteredHours = Number(hours);
+
+        if (totalHours + enteredHours > 16) {
+            console.log("Cannot add more than 16 hours");
+            return;
+        }
 
         const newTask = {
             id: Date.now().toString(),
             task: task,
-            hours: Number(hours),
+            hours: enteredHours,
         };
 
         const updated = [...tasks, newTask];
@@ -49,6 +59,16 @@ export default function TaskListScreen({ route, navigation }) {
         setHours("");
     };
 
+
+    // const clearData = async () => {
+    //     try{
+    //         await AsyncStorage.clear()
+    //         console.log("All data is clear in AsyncStorage")
+    //     }
+    //     catch(error){
+    //         console.log("Something went wrong: ", error)
+    //     }
+    // }
     return (
         <SafeAreaView style={styles.safeArea}>
             <Image
@@ -94,8 +114,12 @@ export default function TaskListScreen({ route, navigation }) {
                 />
 
                 <TouchableOpacity
-                    style={styles.addBtn}
+                    style={[
+                        styles.addBtn,
+                        totalHours >= 16 && styles.disabledBtn,
+                    ]}
                     onPress={addTask}
+                    disabled={totalHours >= 16}
                 >
                     <Text style={styles.addText}>+ Add Task</Text>
                 </TouchableOpacity>
@@ -110,6 +134,8 @@ export default function TaskListScreen({ route, navigation }) {
                         </View>
                     )}
                 />
+
+                {/* <Button onPress={clearData} title="clear data"/> */}
             </View>
         </SafeAreaView>
     );
